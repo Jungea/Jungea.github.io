@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>기타 코드 연습</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<h1>🎸 기타 코드 연습</h1>
+
+<button id="startStopButton" onclick="toggleQuiz()">시작</button>
+
+<div id="code-display">코드를 시작하려면 버튼을 누르세요</div>
+<div id="countdown"></div>
+<div id="image-display"></div>
+
+<div class="controls">
+    <div class="timing">
+        <label>문제 노출: <input type="number" id="questionTime" value="3" min="1" /> 초</label>
+        <label>정답 노출: <input type="number" id="answerTime" value="3" min="1" /> 초</label>
+    </div>
+</div>
+
+<div class="code-groups">
+    <div class="code-group">
+        <div class="group-title">
+            <label><input type="checkbox" id="selectAllMajor" onchange="toggleGroup('major', this.checked)"> 메이저 전체</label>
+        </div>
+        <div class="chords" id="majorChords"></div>
+    </div>
+
+    <div class="code-group">
+        <div class="group-title">
+            <label><input type="checkbox" id="selectAll7th" onchange="toggleGroup('seventh', this.checked)"> 세븐코드 전체</label>
+        </div>
+        <div class="chords" id="seventhChords"></div>
+    </div>
+
+    <div class="code-group">
+        <div class="group-title">
+            <label><input type="checkbox" id="selectAllMinor" onchange="toggleGroup('minor', this.checked)"> 마이너 전체</label>
+        </div>
+        <div class="chords" id="minorChords"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
