@@ -7,8 +7,11 @@ const chordData = {
 let isRunning = false;
 let currentTimeout = null;
 let countdownTimer = null;
+let lastChord = null; // ✅ 이전 코드 저장
 
 function createChordCheckboxes() {
+    const defaultChecked = ['C', 'D', 'D7', 'E7', 'G', 'G7', 'A', 'A7']; // ✅ 기본 선택할 코드들
+
     for (const group in chordData) {
         const container = document.getElementById(`${group}Chords`);
         chordData[group].forEach(chord => {
@@ -17,13 +20,14 @@ function createChordCheckboxes() {
             input.type = 'checkbox';
             input.value = chord;
             input.classList.add(`${group}-chord`);
-            input.checked = group !== 'minor'; // 마이너는 기본 해제
+            input.checked = defaultChecked.includes(chord); // ✅ 기본 선택 여부 체크
             label.appendChild(input);
             label.appendChild(document.createTextNode(chord));
             container.appendChild(label);
         });
     }
 }
+
 
 function toggleGroup(group, isChecked) {
     const checkboxes = document.querySelectorAll(`.${group}-chord`);
@@ -54,9 +58,8 @@ function showAnswerImage(chord) {
     imageDisplay.appendChild(img);
 }
 
-function updateCountdown(seconds) {
-    const countdown = document.getElementById('countdown');
-    countdown.textContent = `⏳ ${seconds}초 남음`;
+function updateCountdown(text) {
+    document.getElementById('countdown').textContent = text;
 }
 
 function runRound(qTime, aTime) {
@@ -69,22 +72,38 @@ function runRound(qTime, aTime) {
         return;
     }
 
-    const randomChord = chords[Math.floor(Math.random() * chords.length)];
+    // ✅ 같은 코드 반복 방지
+    let randomChord;
+    do {
+        randomChord = chords[Math.floor(Math.random() * chords.length)];
+    } while (chords.length > 1 && randomChord === lastChord);
+    lastChord = randomChord;
+
     showChordOnly(randomChord);
 
+    // 문제 노출 카운트다운
     let timeLeft = qTime / 1000;
-    updateCountdown(timeLeft);
+    updateCountdown(`문제 보기 ⏳ ${timeLeft}초 남음`);
 
     clearInterval(countdownTimer);
     countdownTimer = setInterval(() => {
         timeLeft--;
-        updateCountdown(timeLeft);
+        updateCountdown(`문제 보기 ⏳ ${timeLeft}초 남음`);
         if (timeLeft <= 0) clearInterval(countdownTimer);
     }, 1000);
 
     currentTimeout = setTimeout(() => {
-        document.getElementById('countdown').textContent = '';
         showAnswerImage(randomChord);
+
+        let answerTimeLeft = aTime / 1000;
+        updateCountdown(`정답 보기 ⏳ ${answerTimeLeft}초 남음`);
+
+        clearInterval(countdownTimer);
+        countdownTimer = setInterval(() => {
+            answerTimeLeft--;
+            updateCountdown(`정답 보기 ⏳ ${answerTimeLeft}초 남음`);
+            if (answerTimeLeft <= 0) clearInterval(countdownTimer);
+        }, 1000);
 
         currentTimeout = setTimeout(() => {
             runRound(qTime, aTime);
@@ -116,5 +135,4 @@ function toggleQuiz() {
     }
 }
 
-// 초기 체크박스 렌더링
 createChordCheckboxes();
