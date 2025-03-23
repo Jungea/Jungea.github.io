@@ -9,12 +9,19 @@
 <body>
 <h1>🎸 기타 코드 연습</h1>
 
+<!-- 1. 시작 버튼 -->
 <button id="startStopButton" onclick="toggleQuiz()">시작</button>
 
+<!-- 2. 연습할 코드 -->
 <div id="code-display">코드를 시작하려면 버튼을 누르세요</div>
+
+<!-- 3. 카운트다운 -->
 <div id="countdown"></div>
+
+<!-- 4. 정답 이미지 -->
 <div id="image-display"></div>
 
+<!-- 5. 문제/정답 노출 시간 -->
 <div class="controls">
     <div class="timing">
         <label>문제 노출: <input type="number" id="questionTime" value="3" min="1" /> 초</label>
@@ -22,6 +29,7 @@
     </div>
 </div>
 
+<!-- 6. 코드 체크박스 그룹 -->
 <div class="code-groups">
     <div class="code-group">
         <div class="group-title">
