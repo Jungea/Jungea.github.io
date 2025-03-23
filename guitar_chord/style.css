@@ -54,7 +54,7 @@ button {
 }
 
 #image-display {
-    min-height: 200px; /* ✅ 이미지 영역 확보 */
+    min-height: 250px;
     transition: all 0.3s ease;
 }
 
