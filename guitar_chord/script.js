@@ -10,7 +10,7 @@ let countdownTimer = null;
 let lastChord = null; // ✅ 이전 코드 저장
 
 function createChordCheckboxes() {
-    const defaultChecked = ['C', 'D', 'D7', 'E7', 'G', 'G7', 'A', 'A7']; // ✅ 기본 선택할 코드들
+    const defaultChecked = ['C', 'D', 'D7', 'E7', 'G', 'G7', 'A', 'A7']; // ✅ 기본 선택할 코드들 (수정예정)
 
     for (const group in chordData) {
         const container = document.getElementById(`${group}Chords`);
