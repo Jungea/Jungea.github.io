@@ -10,8 +10,6 @@ let countdownTimer = null;
 let lastChord = null; // ✅ 이전 코드 저장
 
 function createChordCheckboxes() {
-    const defaultChecked = ['C', 'D', 'D7', 'E7', 'G', 'G7', 'A', 'A7']; // ✅ 기본 선택할 코드들 (수정예정)
-
     for (const group in chordData) {
         const container = document.getElementById(`${group}Chords`);
         chordData[group].forEach(chord => {
@@ -20,7 +18,7 @@ function createChordCheckboxes() {
             input.type = 'checkbox';
             input.value = chord;
             input.classList.add(`${group}-chord`);
-            input.checked = defaultChecked.includes(chord); // ✅ 기본 선택 여부 체크
+            input.checked = true; // ✅ 모두 체크 상태로 시작
             label.appendChild(input);
             label.appendChild(document.createTextNode(chord));
             container.appendChild(label);
